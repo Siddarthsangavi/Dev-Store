@@ -1,71 +1,64 @@
-# Dev-Store README
+# Dev Store
 
-This is the README for your extension "Dev-Store". After writing up a brief description, we recommend including the following sections.
+Dev Store is a VS Code extension that helps you organize and quickly access frequently used commands for different repositories. Keep your project-specific commands organized and easily accessible right from VS Code's sidebar.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Repository-based Organization**: Create separate sections for each repository or project
+- **Command Management**: Store, edit, and organize commands within each section
+- **Quick Access**: Run commands directly in the terminal or copy to clipboard
+- **Rich Command Display**: Commands are displayed in a clear, readable format with labels
+- **Keyboard Shortcuts**: Quick access to common actions
 
-For example if there is an image subfolder under your extension project workspace:
+### Command Organization
+![Feature Preview](resources/preview.gif)
 
-\!\[feature X\]\(images/feature-x.png\)
+- Create sections for different repositories/projects
+- Add commands with descriptive labels
+- Commands are stored with rich formatting for better readability
+- Easy editing and deletion of sections and commands
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### Quick Actions
+- Copy commands to clipboard with one click
+- Run commands directly in the integrated terminal
+- Edit commands and sections inline
+- Delete items with confirmation for safety
+
+## Keyboard Shortcuts
+
+- `Cmd+Shift+S` (Mac) / `Ctrl+Shift+S` (Windows/Linux): Add new section
+- `Cmd+Shift+C` (Mac) / `Ctrl+Shift+C` (Windows/Linux): Add new command (when a section is selected)
+
+## Usage
+
+1. Click the Dev Store icon in the activity bar to open the sidebar
+2. Click the "+" button to create a new section for your repository
+3. Select a section and click the "+" button to add a command
+4. Use the inline buttons to:
+   - Edit items (pencil icon)
+   - Delete items (trash icon)
+   - Copy commands (copy icon)
+   - Run commands in terminal (terminal icon)
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- Visual Studio Code version 1.98.0 or higher
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+This extension currently stores all data in VS Code's global storage and doesn't require any additional configuration.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+If you find any issues, please report them at [https://github.com/yourusername/dev-store/issues](https://github.com/yourusername/dev-store/issues)
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Initial release of Dev Store:
+- Basic section and command management
+- Copy to clipboard functionality
+- Run in terminal functionality
+- Rich command display
+- Keyboard shortcuts

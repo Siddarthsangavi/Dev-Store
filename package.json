@@ -1,21 +1,160 @@
 {
-  "name": "Dev-Store",
-  "displayName": "Dev-Store",
-  "description": "Your personal space in VS Code to dump all those commands, notes, and random ideas. Store anything you need, and access it anytime, no hassle.",
+  "name": "dev-store",
+  "displayName": "Dev Store",
+  "description": "Your personal command store for VS Code. Organize and quickly access frequently used commands per repository.",
+  "publisher": "yourpublisher",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.98.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Snippets",
+    "Programming Languages"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "commands",
+    "terminal",
+    "repository",
+    "snippets",
+    "productivity"
+  ],
+  "activationEvents": [
+    "onView:devStoreExplorer",
+    "onCommand:dev-store.addSection",
+    "onCommand:dev-store.addCommand",
+    "onCommand:dev-store.editItem",
+    "onCommand:dev-store.deleteItem",
+    "onCommand:dev-store.copyCommand",
+    "onCommand:dev-store.runInTerminal",
+    "onCommand:dev-store.exportData",
+    "onCommand:dev-store.importData"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "dev-store",
+          "title": "Dev Store",
+          "icon": "resources/store.svg"
+        }
+      ]
+    },
+    "views": {
+      "dev-store": [
+        {
+          "id": "devStoreExplorer",
+          "name": "Command Store",
+          "type": "tree"
+        }
+      ]
+    },
     "commands": [
       {
-        "command": "Dev-Store.helloWorld",
-        "title": "Hello World"
+        "command": "dev-store.addSection",
+        "title": "Add Section",
+        "icon": "$(add)"
+      },
+      {
+        "command": "dev-store.addCommand",
+        "title": "Add Command",
+        "icon": "$(plus)"
+      },
+      {
+        "command": "dev-store.editItem",
+        "title": "Edit",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "dev-store.deleteItem",
+        "title": "Delete",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "dev-store.copyCommand",
+        "title": "Copy Command",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "dev-store.runInTerminal",
+        "title": "Run in Terminal",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "dev-store.exportData",
+        "title": "Dev Store: Export Commands",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "dev-store.importData",
+        "title": "Dev Store: Import Commands",
+        "icon": "$(cloud-download)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "dev-store.addSection",
+          "when": "view == devStoreExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "dev-store.exportData",
+          "when": "view == devStoreExplorer",
+          "group": "overflow@1"
+        },
+        {
+          "command": "dev-store.importData",
+          "when": "view == devStoreExplorer",
+          "group": "overflow@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "dev-store.addCommand",
+          "when": "view == devStoreExplorer && viewItem == section",
+          "group": "inline@1"
+        },
+        {
+          "command": "dev-store.editItem",
+          "when": "view == devStoreExplorer",
+          "group": "inline@2"
+        },
+        {
+          "command": "dev-store.deleteItem",
+          "when": "view == devStoreExplorer",
+          "group": "inline@3"
+        },
+        {
+          "command": "dev-store.copyCommand",
+          "when": "view == devStoreExplorer && viewItem == command",
+          "group": "inline@1"
+        },
+        {
+          "command": "dev-store.runInTerminal",
+          "when": "view == devStoreExplorer && viewItem == command",
+          "group": "inline@2"
+        }
+      ]
+    },
+    "css": [
+      {
+        "path": "./media/styles.css"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "dev-store.addSection",
+        "key": "ctrl+shift+s",
+        "mac": "cmd+shift+s",
+        "when": "view == devStoreExplorer"
+      },
+      {
+        "command": "dev-store.addCommand",
+        "key": "ctrl+shift+c",
+        "mac": "cmd+shift+c",
+        "when": "view == devStoreExplorer && viewItem == section"
       }
     ]
   },
@@ -28,22 +167,27 @@
     "package": "npm run check-types && npm run lint && node esbuild.js --production",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "pretest": "npm run compile-tests",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "test-compile": "tsc -p ./"
   },
   "devDependencies": {
-    "@types/vscode": "^1.98.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/uuid": "^10.0.0",
+    "@types/vscode": "^1.98.0",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
-    "eslint": "^9.21.0",
-    "esbuild": "^0.25.0",
-    "npm-run-all": "^4.1.5",
-    "typescript": "^5.7.3",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1"
+    "@vscode/test-electron": "^2.4.1",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.21.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "uuid": "^11.1.0"
   }
 }

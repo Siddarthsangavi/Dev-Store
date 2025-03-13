@@ -1,0 +1,28 @@
+.dev-store-command {
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 4px 0;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.dev-store-command .command-text {
+    opacity: 0.8;
+    font-size: 0.9em;
+    margin-top: 2px;
+    display: block;
+}
+
+.draggable-item {
+    cursor: move;
+}
+
+.drop-target {
+    border: 1px dashed var(--vscode-editor-foreground);
+    opacity: 0.6;
+    margin: 2px 0;
+}
+
+.dragging {
+    opacity: 0.5;
+}
