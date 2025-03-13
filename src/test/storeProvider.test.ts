@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import { StoreProvider } from '../storeProvider';
-import { StoreItem, StoreData } from '../types';
+import { StoreItem, StoreData, StoreCommand } from '../types';
 
 suite('StoreProvider Test Suite', () => {
     let storeProvider: StoreProvider;
@@ -57,10 +57,10 @@ suite('StoreProvider Test Suite', () => {
         await storeProvider.addCommand(sections[0].id, 'Test Command', 'echo test');
         const commands = await storeProvider.getChildren(sections[0]);
         
-        await storeProvider.editItem(commands[0], 'Updated Command', 'echo updated');
+        await storeProvider.editCommand(commands[0] as StoreCommand, 'Updated Command', 'echo updated');
         const updatedCommands = await storeProvider.getChildren(sections[0]);
         assert.strictEqual(updatedCommands[0].label, 'Updated Command');
-        assert.strictEqual((updatedCommands[0] as any).command, 'echo updated');
+        assert.strictEqual((updatedCommands[0] as StoreCommand).command, 'echo updated');
     });
 
     test('Delete Section', async () => {

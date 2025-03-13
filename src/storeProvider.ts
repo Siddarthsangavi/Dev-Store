@@ -1,19 +1,81 @@
 import * as vscode from 'vscode';
 import { v4 as uuidv4 } from 'uuid';
-import { StoreData, StoreItem, StoreSection, StoreCommand } from './types';
+import { StoreData, StoreItem, StoreSection, StoreCommand, CommandIconType } from './types';
 
 export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode.TreeDragAndDropController<StoreItem> {
     private _onDidChangeTreeData: vscode.EventEmitter<StoreItem | undefined | null | void> = new vscode.EventEmitter<StoreItem | undefined | null | void>();
     readonly onDidChangeTreeData: vscode.Event<StoreItem | undefined | null | void> = this._onDidChangeTreeData.event;
 
     private storeData: StoreData;
-
     dropMimeTypes = ['application/vnd.code.tree.devStoreExplorer'];
     dragMimeTypes = ['application/vnd.code.tree.devStoreExplorer'];
 
     constructor(private context: vscode.ExtensionContext) {
         const data = context.globalState.get<StoreData>('storeData');
         this.storeData = data || { sections: [], commands: [] };
+    }
+
+    private getCommandIcon(iconType?: CommandIconType): vscode.ThemeIcon {
+        const iconMap: Record<CommandIconType, string> = {
+            'terminal': 'terminal',
+            'git': 'git-commit',
+            'npm': 'package',
+            'database': 'database',
+            'docker': 'symbol-namespace',
+            'cloud': 'cloud',
+            'test': 'beaker',
+            'build': 'tools',
+            'debug': 'debug',
+            'folder': 'folder',
+            'settings': 'gear',
+            'run': 'play',
+            'code': 'symbol-misc'
+        };
+
+        return new vscode.ThemeIcon(iconMap[iconType || 'code']);
+    }
+
+    private detectIconType(command: string): CommandIconType {
+        const lowerCmd = command.toLowerCase();
+        
+        // Git commands
+        if (lowerCmd.startsWith('git ') || lowerCmd.includes('github')) {return 'git';}
+        
+        // NPM/Node commands
+        if (lowerCmd.match(/^(npm|yarn|pnpm|node)\s/)) {return 'npm';}
+        
+        // Database commands
+        if (lowerCmd.match(/(mongo|psql|mysql|sqlite|redis|sequelize|prisma)/)) {return 'database';}
+        
+        // Docker commands
+        if (lowerCmd.match(/^(docker|docker-compose|kubectl)\s/)) {return 'docker';}
+        
+        // Test commands
+        if (lowerCmd.match(/(test|jest|mocha|cypress|playwright|vitest)/)) {return 'test';}
+        
+        // Build commands
+        if (lowerCmd.match(/(build|compile|webpack|vite|rollup|esbuild|tsc)/)) {return 'build';}
+        
+        // Debug commands
+        if (lowerCmd.match(/(debug|inspect|chrome:\/\/inspect)/)) {return 'debug';}
+        
+        // File system commands
+        if (lowerCmd.match(/^(cd|ls|dir|cp|mv|rm|mkdir|touch)\s/)) {return 'folder';}
+        
+        // Settings/Config commands
+        if (lowerCmd.match(/(config|.json|.env|.yaml|.yml|.ini|.conf)/)) {return 'settings';}
+        
+        // Run/Serve commands
+        if (lowerCmd.match(/(start|serve|dev|run|watch)/)) {return 'run';}
+        
+        // Terminal commands that don't fit other categories
+        if (lowerCmd.match(/^(ssh|curl|wget|ping|telnet|nc)\s/)) {return 'terminal';}
+        
+        // Cloud/Deployment commands
+        if (lowerCmd.match(/(aws|gcp|azure|heroku|vercel|netlify|firebase)/)) {return 'cloud';}
+        
+        // Default to code icon for unknown commands
+        return 'code';
     }
 
     getTreeItem(element: StoreItem): vscode.TreeItem {
@@ -26,7 +88,7 @@ export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode
             treeItem.tooltip = element.command;
             treeItem.description = element.command;
             treeItem.contextValue = 'command';
-            treeItem.iconPath = new vscode.ThemeIcon('terminal');
+            treeItem.iconPath = this.getCommandIcon(this.detectIconType(element.command));
         } else {
             treeItem.contextValue = 'section';
             treeItem.iconPath = new vscode.ThemeIcon('repo');
@@ -83,7 +145,8 @@ export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode
             label: label.trim(),
             command: command.trim(),
             type: 'command',
-            parentId: sectionId
+            parentId: sectionId,
+            iconType: this.detectIconType(command.trim())
         };
 
         this.storeData.commands.push(cmd);
@@ -116,6 +179,27 @@ export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode
 
             section.label = newLabel.trim();
         }
+
+        await this.saveData();
+        this.refresh();
+    }
+
+    async editCommand(command: StoreCommand, newLabel: string, newCommand: string) {
+        if (!newLabel.trim()) {
+            throw new Error('Label cannot be empty');
+        }
+        if (!newCommand.trim()) {
+            throw new Error('Command cannot be empty');
+        }
+
+        const cmd = this.storeData.commands.find(c => c.id === command.id);
+        if (!cmd) {
+            throw new Error('Command not found');
+        }
+
+        cmd.label = newLabel.trim();
+        cmd.command = newCommand.trim();
+        cmd.iconType = this.detectIconType(newCommand.trim());
 
         await this.saveData();
         this.refresh();

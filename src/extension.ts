@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { StoreProvider } from './storeProvider';
-import { StoreItem } from './types';
+import { StoreItem, StoreCommand } from './types';
 
 export function activate(context: vscode.ExtensionContext) {
     const storeProvider = new StoreProvider(context);
@@ -77,7 +77,7 @@ export function activate(context: vscode.ExtensionContext) {
                         });
 
                         if (command) {
-                            await storeProvider.editItem(item, label, command);
+                            await storeProvider.editCommand(item as StoreCommand, label, command);
                         }
                     } else {
                         await storeProvider.editItem(item, label);
