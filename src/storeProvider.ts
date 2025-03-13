@@ -17,31 +17,17 @@ export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode
     }
 
     getTreeItem(element: StoreItem): vscode.TreeItem {
-         const treeItem = new vscode.TreeItem(
+        const treeItem = new vscode.TreeItem(
             element.label,
             element.type === 'section' ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.None
         );
 
-        const markdown = new vscode.MarkdownString('', true);
-        markdown.supportHtml = true;
-        markdown.isTrusted = true;
-
         if (element.type === 'command') {
-            markdown.appendMarkdown(`<div class="dev-store-command draggable-item">
-                ${element.label}
-                <span class="command-text">${element.command}</span>
-            </div>`);
-            
-            treeItem.tooltip = markdown;
+            treeItem.tooltip = element.command;
             treeItem.description = element.command;
             treeItem.contextValue = 'command';
             treeItem.iconPath = new vscode.ThemeIcon('terminal');
         } else {
-            markdown.appendMarkdown(`<div class="drop-target">
-                ${element.label}
-            </div>`);
-            
-            treeItem.tooltip = markdown;
             treeItem.contextValue = 'section';
             treeItem.iconPath = new vscode.ThemeIcon('repo');
         }

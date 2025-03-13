@@ -19,17 +19,7 @@
     "snippets",
     "productivity"
   ],
-  "activationEvents": [
-    "onView:devStoreExplorer",
-    "onCommand:dev-store.addSection",
-    "onCommand:dev-store.addCommand",
-    "onCommand:dev-store.editItem",
-    "onCommand:dev-store.deleteItem",
-    "onCommand:dev-store.copyCommand",
-    "onCommand:dev-store.runInTerminal",
-    "onCommand:dev-store.exportData",
-    "onCommand:dev-store.importData"
-  ],
+  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
     "viewsContainers": {
@@ -90,6 +80,11 @@
         "command": "dev-store.importData",
         "title": "Dev Store: Import Commands",
         "icon": "$(cloud-download)"
+      },
+      {
+        "command": "dev-store.insertInTerminal",
+        "title": "Insert into Terminal",
+        "icon": "$(arrow-right)"
       }
     ],
     "menus": {
@@ -135,6 +130,11 @@
           "command": "dev-store.runInTerminal",
           "when": "view == devStoreExplorer && viewItem == command",
           "group": "inline@2"
+        },
+        {
+          "command": "dev-store.insertInTerminal",
+          "when": "view == devStoreExplorer && viewItem == command",
+          "group": "inline@3"
         }
       ]
     },

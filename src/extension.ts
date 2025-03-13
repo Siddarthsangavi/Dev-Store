@@ -45,27 +45,14 @@ export function activate(context: vscode.ExtensionContext) {
                 });
 
                 if (label) {
-                    const suggestions = getCommandSuggestions();
-                    const command = await vscode.window.showQuickPick([
-                        { label: 'Enter New Command...', kind: vscode.QuickPickItemKind.Default },
-                        ...suggestions.map(cmd => ({ label: cmd }))
-                    ], {
-                        placeHolder: 'Select an existing command or enter a new one'
+                    const command = await vscode.window.showInputBox({
+                        prompt: 'Enter command',
+                        placeHolder: 'e.g., npm run dev',
+                        validateInput: text => !text.trim() ? 'Command cannot be empty' : null
                     });
 
                     if (command) {
-                        if (command.label === 'Enter New Command...') {
-                            const newCommand = await vscode.window.showInputBox({
-                                prompt: 'Enter command',
-                                placeHolder: 'e.g., npm run dev',
-                                validateInput: text => !text.trim() ? 'Command cannot be empty' : null
-                            });
-                            if (newCommand) {
-                                await storeProvider.addCommand(section.id, label, newCommand);
-                            }
-                        } else {
-                            await storeProvider.addCommand(section.id, label, command.label);
-                        }
+                        await storeProvider.addCommand(section.id, label, command);
                     }
                 }
             } catch (error) {
@@ -190,6 +177,18 @@ export function activate(context: vscode.ExtensionContext) {
                 }
             } catch (error) {
                 vscode.window.showErrorMessage(`Failed to import data: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            }
+        }),
+
+        vscode.commands.registerCommand('dev-store.insertInTerminal', async (item: StoreItem) => {
+            try {
+                if (item.type === 'command') {
+                    const terminal = vscode.window.activeTerminal || vscode.window.createTerminal('Dev Store');
+                    terminal.show(true); // true parameter ensures terminal gets focus
+                    terminal.sendText(item.command, false); // false parameter prevents executing the command
+                }
+            } catch (error) {
+                vscode.window.showErrorMessage(`Failed to insert command: ${error instanceof Error ? error.message : 'Unknown error'}`);
             }
         })
     );
