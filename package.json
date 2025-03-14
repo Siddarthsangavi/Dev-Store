@@ -5,6 +5,10 @@
   "publisher": "SiddharthSangavi",
   "version": "0.0.1",
   "icon": "resources/logo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Siddarthsangavi/DevStore"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },
