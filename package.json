@@ -78,12 +78,12 @@
       },
       {
         "command": "dev-store.exportData",
-        "title": "Dev Store: Export Commands",
+        "title": "Export Commands",
         "icon": "$(cloud-upload)"
       },
       {
         "command": "dev-store.importData",
-        "title": "Dev Store: Import Commands",
+        "title": "Import Commands",
         "icon": "$(cloud-download)"
       },
       {
@@ -146,20 +146,6 @@
     "css": [
       {
         "path": "./media/styles.css"
-      }
-    ],
-    "keybindings": [
-      {
-        "command": "dev-store.addSection",
-        "key": "ctrl+shift+s",
-        "mac": "cmd+shift+s",
-        "when": "view == devStoreExplorer"
-      },
-      {
-        "command": "dev-store.addCommand",
-        "key": "ctrl+shift+c",
-        "mac": "cmd+shift+c",
-        "when": "view == devStoreExplorer && viewItem == section"
       }
     ]
   },

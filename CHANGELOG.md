@@ -14,4 +14,3 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Insert commands into active terminal
 - Copy commands to clipboard
 - Import/Export functionality
-- Keyboard shortcuts for quick access
