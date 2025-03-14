@@ -30,10 +30,6 @@ Dev Store is a VS Code extension that helps you organize and quickly access freq
 
 Create new sections for your repositories and add commands with descriptive labels.
 
-### Importing and Exporting
-![Import commands](resources/import.gif)
-
-Easily import your existing command configurations or share them across different environments.
 
 ### Running Commands in Terminal
 ![Run in Terminal](resources/runInTerminal.gif)
@@ -65,7 +61,7 @@ If you find any issues, please report them at [https://github.com/SiddarthSangav
 
 ## Release Notes
 
-### 0.0.1
+### 1.0.1
 
 Initial release of Dev Store:
 - Basic section and command management

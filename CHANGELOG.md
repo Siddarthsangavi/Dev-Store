@@ -4,7 +4,7 @@ All notable changes to the "Dev-Store" extension will be documented in this file
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [0.0.1] - 2025
+## [1.0.1] - 2025
 ### Added
 - Initial release of Dev Store
 - Command Store view in Activity Bar
