@@ -61,7 +61,7 @@ This extension currently stores all data in VS Code's global storage and doesn't
 
 ## Known Issues
 
-If you find any issues, please report them at [https://github.com/SiddharthaSangavi/Dev-Store/issues](https://github.com/SiddharthaSangavi/Dev-Store/issues)
+If you find any issues, please report them at [https://github.com/SiddarthSangavi/Dev-Store/issues](https://github.com/SiddarthSangavi/Dev-Store/issues)
 
 ## Release Notes
 
