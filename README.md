@@ -23,6 +23,23 @@ Dev Store is a VS Code extension that helps you organize and quickly access freq
 - Edit commands and sections inline
 - Delete items with confirmation for safety
 
+## Features in Action
+
+### Creating Sections and Commands
+![Create sections and commands](https://github.com/Chandana-cs/Dev-Store/blob/main/resources/create.gif)
+
+Create new sections for your repositories and add commands with descriptive labels.
+
+### Importing and Exporting
+![Import commands](https://github.com/Chandana-cs/Dev-Store/blob/main/resources/import.gif)
+
+Easily import your existing command configurations or share them across different environments.
+
+### Running Commands in Terminal
+![Run in Terminal](https://github.com/Chandana-cs/Dev-Store/blob/main/resources/runInTerminal.gif)
+
+Execute your stored commands directly in the integrated terminal with a single click.
+
 ## Usage
 
 1. Click the Dev Store icon in the activity bar to open the sidebar
