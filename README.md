@@ -8,10 +8,8 @@ Dev Store is a VS Code extension that helps you organize and quickly access freq
 - **Command Management**: Store, edit, and organize commands within each section
 - **Quick Access**: Run commands directly in the terminal or copy to clipboard
 - **Rich Command Display**: Commands are displayed in a clear, readable format with labels
-- **Keyboard Shortcuts**: Quick access to common actions
 
 ### Command Organization
-![Feature Preview](resources/preview.gif)
 
 - Create sections for different repositories/projects
 - Add commands with descriptive labels
@@ -19,15 +17,11 @@ Dev Store is a VS Code extension that helps you organize and quickly access freq
 - Easy editing and deletion of sections and commands
 
 ### Quick Actions
+
 - Copy commands to clipboard with one click
 - Run commands directly in the integrated terminal
 - Edit commands and sections inline
 - Delete items with confirmation for safety
-
-## Keyboard Shortcuts
-
-- `Cmd+Shift+S` (Mac) / `Ctrl+Shift+S` (Windows/Linux): Add new section
-- `Cmd+Shift+C` (Mac) / `Ctrl+Shift+C` (Windows/Linux): Add new command (when a section is selected)
 
 ## Usage
 
@@ -42,7 +36,7 @@ Dev Store is a VS Code extension that helps you organize and quickly access freq
 
 ## Requirements
 
-- Visual Studio Code version 1.98.0 or higher
+- Visual Studio Code version 1.80.0 or higher
 
 ## Extension Settings
 
@@ -50,7 +44,7 @@ This extension currently stores all data in VS Code's global storage and doesn't
 
 ## Known Issues
 
-If you find any issues, please report them at [https://github.com/yourusername/dev-store/issues](https://github.com/yourusername/dev-store/issues)
+If you find any issues, please report them at [https://github.com/SiddharthaSangavi/Dev-Store/issues](https://github.com/SiddharthaSangavi/Dev-Store/issues)
 
 ## Release Notes
 
@@ -61,4 +55,3 @@ Initial release of Dev Store:
 - Copy to clipboard functionality
 - Run in terminal functionality
 - Rich command display
-- Keyboard shortcuts
