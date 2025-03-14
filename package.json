@@ -7,7 +7,7 @@
   "icon": "resources/logo.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Siddarthsangavi/DevStore"
+    "url": "https://github.com/Siddarthsangavi/Dev-Store"
   },
   "engines": {
     "vscode": "^1.80.0"
