@@ -2,10 +2,11 @@
   "name": "dev-store",
   "displayName": "Dev Store",
   "description": "Your personal command store for VS Code. Organize and quickly access frequently used commands per repository.",
-  "publisher": "yourpublisher",
+  "publisher": "SiddharthSangavi",
   "version": "0.0.1",
+  "icon": "resources/logo.png",
   "engines": {
-    "vscode": "^1.98.0"
+    "vscode": "^1.80.0"
   },
   "categories": [
     "Other",
@@ -177,7 +178,7 @@
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
     "@types/uuid": "^10.0.0",
-    "@types/vscode": "^1.98.0",
+    "@types/vscode": "^1.80.0",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
     "@vscode/test-cli": "^0.0.10",
