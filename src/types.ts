@@ -19,6 +19,12 @@ export interface StoreSection {
     type: 'section';
 }
 
+/**
+ * Available placeholders for commands:
+ * - {filename} - Just the filename with extension
+ * - {filepath} - Full file path of active editor
+ * - {env:VARIABLE_NAME} - Value from .env file (e.g., {env:PORT})
+ */
 export interface StoreCommand {
     id: string;
     label: string;

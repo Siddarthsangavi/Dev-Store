@@ -22,6 +22,7 @@ Dev Store is a VS Code extension that helps you organize and quickly access freq
 - Run commands directly in the integrated terminal
 - Edit commands and sections inline
 - Delete items with confirmation for safety
+- Use file placeholders in commands that get replaced with active file information
 
 ## Features in Action
 
@@ -46,6 +47,60 @@ Execute your stored commands directly in the integrated terminal with a single c
    - Delete items (trash icon)
    - Copy commands (copy icon)
    - Run commands in terminal (terminal icon)
+
+### File and Environment Placeholders
+
+When creating or editing commands, you can use the following placeholders:
+
+#### File Placeholders
+- `{filename}` - The filename with extension (e.g., "app.js")
+- `{filepath}` - Full file path of active editor (e.g., "/path/to/your/app.js")
+
+#### Environment Variables
+- `{env:VARIABLE_NAME}` - Value from your project's .env file (e.g., `{env:PORT}`)
+
+Example usage:
+- Run server on specific port: `node server.js --port {env:PORT}`
+- Connect to database: `psql -h localhost -p {env:DB_PORT} -U {env:DB_USER} {env:DB_NAME}`
+- Run tests with custom config: `jest {filepath} --config {env:TEST_CONFIG}`
+
+The extension will automatically:
+1. Look for a .env file in your workspace root
+2. Replace any `{env:VARIABLE}` placeholders with values from the .env file
+3. Show a warning if a referenced environment variable is not found
+
+### Example Commands Using File Placeholders
+
+Here are some common use cases and how to store them in Dev Store:
+
+1. Running tests for specific file:
+   - Label: "Test Current File"
+   - Command: `npm test {filepath}`
+   or
+   - Label: "Test File (Jest)"
+   - Command: `jest {filename}`
+
+2. Running TypeScript compilation:
+   - Label: "Compile Current File"
+   - Command: `tsc {filepath}`
+
+3. Running ESLint:
+   - Label: "Lint Current File"
+   - Command: `eslint {filepath}`
+   - Label: "Fix Lint Issues"
+   - Command: `eslint --fix {filepath}`
+
+4. Running Python scripts:
+   - Label: "Run Python File"
+   - Command: `python {filepath}`
+
+5. Running specific test suites:
+   - Label: "Run Test Suite"
+   - Command: `mocha {filepath}`
+
+When you run these commands, the placeholders will be automatically replaced with:
+- `{filename}`: just the file name (e.g., "MyComponent.tsx")
+- `{filepath}`: full path to the file (e.g., "/Users/project/src/components/MyComponent.tsx")
 
 ## Requirements
 

@@ -165,6 +165,7 @@
     "test-compile": "tsc -p ./"
   },
   "devDependencies": {
+    "@types/dotenv": "^8.2.3",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
     "@types/uuid": "^10.0.0",
@@ -179,6 +180,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "dotenv": "^16.4.7",
     "uuid": "^11.1.0"
   }
 }

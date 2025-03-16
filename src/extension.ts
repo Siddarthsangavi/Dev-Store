@@ -1,6 +1,9 @@
 import * as vscode from 'vscode';
 import { StoreProvider } from './storeProvider';
 import { StoreItem, StoreCommand } from './types';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+import * as fs from 'fs';
 
 export function activate(context: vscode.ExtensionContext) {
     const storeProvider = new StoreProvider(context);
@@ -10,14 +13,53 @@ export function activate(context: vscode.ExtensionContext) {
         showCollapseAll: true
     });
 
-    // Get unique commands for suggestions
-    const getCommandSuggestions = () => {
-        const uniqueCommands = new Set<string>();
-        storeProvider.getAllCommands().forEach(cmd => {
-            uniqueCommands.add(cmd.command);
+    function loadEnvFile(): { [key: string]: string } {
+        if (!vscode.workspace.workspaceFolders) {
+            return {};
+        }
+
+        // Look for .env file in the first workspace folder
+        const envPath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, '.env');
+        
+        if (!fs.existsSync(envPath)) {
+            return {};
+        }
+
+        const envConfig = dotenv.parse(fs.readFileSync(envPath));
+        return envConfig;
+    }
+
+    function replaceEnvVariables(command: string): string {
+        const envVars = loadEnvFile();
+        return command.replace(/\{env:([^}]+)\}/g, (match, envName) => {
+            const value = envVars[envName];
+            if (value === undefined) {
+                vscode.window.showWarningMessage(`Environment variable ${envName} not found in .env file`);
+                return match; // Keep the placeholder if variable not found
+            }
+            return value;
         });
-        return Array.from(uniqueCommands);
-    };
+    }
+
+    function replaceFilePlaceholders(command: string): string {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            return command;
+        }
+
+        const file = editor.document.uri;
+        const parsedPath = {
+            filename: file.fsPath.split(/[/\\]/).pop() || '',
+            filepath: file.fsPath.replace(/\\/g, '/') // Normalize path separators
+        };
+
+        // First replace file placeholders
+        let processedCommand = command.replace(/(?<![\w])\{(filename|filepath)\}/g, 
+            (match, placeholder) => parsedPath[placeholder as keyof typeof parsedPath] || match);
+        
+        // Then replace environment variables
+        return replaceEnvVariables(processedCommand);
+    }
 
     context.subscriptions.push(
         vscode.commands.registerCommand('dev-store.addSection', async () => {
@@ -122,9 +164,10 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('dev-store.runInTerminal', async (item: StoreItem) => {
             try {
                 if (item.type === 'command') {
+                    const processedCommand = replaceFilePlaceholders(item.command);
                     const terminal = vscode.window.createTerminal('Dev Store');
                     terminal.show();
-                    terminal.sendText(item.command);
+                    terminal.sendText(processedCommand);
                 }
             } catch (error) {
                 vscode.window.showErrorMessage(`Failed to run command: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -183,9 +226,10 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('dev-store.insertInTerminal', async (item: StoreItem) => {
             try {
                 if (item.type === 'command') {
+                    const processedCommand = replaceFilePlaceholders(item.command);
                     const terminal = vscode.window.activeTerminal || vscode.window.createTerminal('Dev Store');
                     terminal.show(true); // true parameter ensures terminal gets focus
-                    terminal.sendText(item.command, false); // false parameter prevents executing the command
+                    terminal.sendText(processedCommand, false); // false parameter prevents executing the command
                 }
             } catch (error) {
                 vscode.window.showErrorMessage(`Failed to insert command: ${error instanceof Error ? error.message : 'Unknown error'}`);
