@@ -116,7 +116,7 @@ If you find any issues, please report them at [https://github.com/SiddarthSangav
 
 ## Release Notes
 
-### 1.1.1
+### 2.0.0
 
 Initial release of Dev Store:
 - Basic section and command management

@@ -16,7 +16,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Placeholders for {filename} and {filepath}
 - Automatic replacement of placeholders with active file information
 
-## [1.1.1] - 2025
+## [2.0.0] - 2025
 ### Added
 - Initial release of Dev Store
 - Command Store view in Activity Bar
