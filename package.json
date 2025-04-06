@@ -105,10 +105,6 @@
         "command": "dev-store.setCommandIcon",
         "title": "Set Command Icon",
         "icon": "$(symbol-color)"
-      },
-      {
-        "command": "dev-store.addSelectedCommandToTerminal",
-        "title": "Dev Store: Add Selected Command to Terminal"
       }
     ],
     "menus": {
