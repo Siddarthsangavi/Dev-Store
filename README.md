@@ -1,14 +1,13 @@
 # Dev Store
 
-Dev Store is a VS Code extension that helps you organize and quickly access frequently used commands for different repositories. Keep your project-specific commands organized and easily accessible right from VS Code's sidebar.
+Dev Store is your personal command store for VS Code. Organize and quickly access frequently used commands per repository.
 
 ## Features
-
-- **Repository-based Organization**: Create separate sections for each repository or project
-- **Command Management**: Store, edit, and organize commands within each section
-- **Quick Access**: Run commands directly in the terminal or copy to clipboard
-- **Rich Command Display**: Commands are displayed in a clear, readable format with labels
-- **Terminal Icons**: Add commands as clickable icons directly in the terminal area
+- Organize commands into sections for better management.
+- Quickly execute commands directly from the command store.
+- Drag and drop commands between sections.
+- Export and import command configurations.
+- **New Feature:** Add custom icons to the status bar below the terminal. Users can click on these icons to run commands instantly.
 
 ### Command Organization
 
@@ -42,15 +41,10 @@ Execute your stored commands directly in the integrated terminal with a single c
 
 ## Usage
 
-1. Click the Dev Store icon in the activity bar to open the sidebar
-2. Click the "+" button to create a new section for your repository
-3. Select a section and click the "+" button to add a command
-4. Use the inline buttons to:
-   - Edit items (pencil icon)
-   - Delete items (trash icon)
-   - Copy commands (copy icon)
-   - Run commands in terminal (terminal icon)
-   - Add commands to terminal (plus icon)
+1. Open the Dev Store view from the activity bar.
+2. Add sections and commands as needed.
+3. Use the context menu to edit, delete, or copy commands.
+4. **New:** Add commands to the status bar for quick access by clicking the "Add to Terminal" option.
 
 ### Terminal Icons
 
@@ -155,3 +149,6 @@ Initial release of Dev Store:
 - Copy to clipboard functionality
 - Run in terminal functionality
 - Rich command display
+
+## Changelog
+See [CHANGELOG.md](./CHANGELOG.md) for details.

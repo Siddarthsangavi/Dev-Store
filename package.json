@@ -3,7 +3,7 @@
   "displayName": "Dev Store",
   "description": "Your personal command store for VS Code. Organize and quickly access frequently used commands per repository.",
   "publisher": "SiddharthSangavi",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "icon": "resources/logo.png",
   "repository": {
     "type": "git",
