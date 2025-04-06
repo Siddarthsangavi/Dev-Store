@@ -90,12 +90,41 @@
         "command": "dev-store.insertInTerminal",
         "title": "Insert into Terminal",
         "icon": "$(arrow-right)"
+      },
+      {
+        "command": "dev-store.manageTerminalIcons",
+        "title": "Manage Terminal Icons",
+        "icon": "$(symbol-color)"
+      },
+      {
+        "command": "dev-store.addToTerminal",
+        "title": "Add to Terminal",
+        "icon": "$(add)"
+      },
+      {
+        "command": "dev-store.setCommandIcon",
+        "title": "Set Command Icon",
+        "icon": "$(symbol-color)"
+      },
+      {
+        "command": "dev-store.addSelectedCommandToTerminal",
+        "title": "Dev Store: Add Selected Command to Terminal"
       }
     ],
     "menus": {
       "view/title": [
         {
           "command": "dev-store.addSection",
+          "when": "view == devStoreExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "dev-store.manageTerminalIcons",
+          "when": "view == devStoreExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "dev-store.addSelectedCommandToTerminal",
           "when": "view == devStoreExplorer",
           "group": "navigation"
         },
@@ -140,12 +169,55 @@
           "command": "dev-store.insertInTerminal",
           "when": "view == devStoreExplorer && viewItem == command",
           "group": "inline@3"
+        },
+        {
+          "command": "dev-store.addToTerminal",
+          "when": "view == devStoreExplorer && viewItem == command",
+          "group": "1_modification"
+        },
+        {
+          "command": "dev-store.runInTerminal",
+          "when": "view == devStoreExplorer && viewItem == command",
+          "group": "2_execution"
+        },
+        {
+          "command": "dev-store.insertInTerminal",
+          "when": "view == devStoreExplorer && viewItem == command",
+          "group": "2_execution"
+        },
+        {
+          "command": "dev-store.copyCommand",
+          "when": "view == devStoreExplorer && viewItem == command",
+          "group": "2_execution"
+        },
+        {
+          "command": "dev-store.setCommandIcon",
+          "when": "view == devStoreExplorer && viewItem == command",
+          "group": "1_modification"
+        },
+        {
+          "command": "dev-store.editItem",
+          "when": "view == devStoreExplorer",
+          "group": "3_edit"
+        },
+        {
+          "command": "dev-store.deleteItem",
+          "when": "view == devStoreExplorer",
+          "group": "3_edit"
         }
       ]
     },
     "css": [
       {
         "path": "./media/styles.css"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "dev-store.addToTerminal",
+        "key": "ctrl+alt+t",
+        "mac": "cmd+alt+t",
+        "when": "view == devStoreExplorer && viewItem == command"
       }
     ]
   },
@@ -174,7 +246,7 @@
     "@typescript-eslint/parser": "^8.25.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
-    "esbuild": "^0.25.0",
+    "esbuild": "^0.25.2",
     "eslint": "^9.21.0",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.7.3"

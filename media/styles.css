@@ -26,3 +26,45 @@
 .dragging {
     opacity: 0.5;
 }
+
+/* Terminal Icons Styles */
+.command-tag {
+    display: inline-block;
+    font-size: 0.8em;
+    padding: 2px 6px;
+    margin: 2px;
+    border-radius: 3px;
+    color: var(--vscode-editor-foreground);
+}
+
+.command-tags {
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.terminal-icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    margin: 2px;
+    border-radius: 3px;
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.terminal-icon-button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+
+.terminal-icon-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px;
+    background-color: var(--vscode-editor-background);
+    border-bottom: 1px solid var(--vscode-panel-border);
+}

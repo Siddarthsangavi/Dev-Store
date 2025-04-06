@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { v4 as uuidv4 } from 'uuid';
-import { StoreData, StoreItem, StoreSection, StoreCommand, CommandIconType } from './types';
+import { StoreData, StoreItem, StoreSection, StoreCommand } from './types'; // Removed CommandIconType
 
 export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode.TreeDragAndDropController<StoreItem> {
     private _onDidChangeTreeData: vscode.EventEmitter<StoreItem | undefined | null | void> = new vscode.EventEmitter<StoreItem | undefined | null | void>();
@@ -12,11 +12,11 @@ export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode
 
     constructor(private context: vscode.ExtensionContext) {
         const data = context.globalState.get<StoreData>('storeData');
-        this.storeData = data || { sections: [], commands: [] };
+        this.storeData = data || { sections: [], commands: [], tagColors: {} }; // Added tagColors
     }
 
-    private getCommandIcon(iconType?: CommandIconType): vscode.ThemeIcon {
-        const iconMap: Record<CommandIconType, string> = {
+    private getCommandIcon(iconType?: string): vscode.ThemeIcon { // Changed iconType to string
+        const iconMap: Record<string, string> = {
             'terminal': 'terminal',
             'git': 'git-commit',
             'npm': 'package',
@@ -35,7 +35,7 @@ export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode
         return new vscode.ThemeIcon(iconMap[iconType || 'code']);
     }
 
-    private detectIconType(command: string): CommandIconType {
+    private detectIconType(command: string): string { // Changed return type to string
         const lowerCmd = command.toLowerCase();
         
         // Git commands
@@ -85,10 +85,10 @@ export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode
         );
 
         if (element.type === 'command') {
-            treeItem.tooltip = element.command;
-            treeItem.description = element.command;
+            treeItem.tooltip = (element as StoreCommand).command; // Cast to StoreCommand
+            treeItem.description = (element as StoreCommand).command; // Cast to StoreCommand
             treeItem.contextValue = 'command';
-            treeItem.iconPath = this.getCommandIcon(this.detectIconType(element.command));
+            treeItem.iconPath = this.getCommandIcon(this.detectIconType((element as StoreCommand).command)); // Cast to StoreCommand
         } else {
             treeItem.contextValue = 'section';
             treeItem.iconPath = new vscode.ThemeIcon('repo');
@@ -127,7 +127,7 @@ export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode
         this.refresh();
     }
 
-    async addCommand(sectionId: string, label: string, command: string) {
+    async addCommand(sectionId: string, label: string, command: string) { // Removed extra arguments
         if (!label.trim()) {
             throw new Error('Command label cannot be empty');
         }
@@ -145,8 +145,7 @@ export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode
             label: label.trim(),
             command: command.trim(),
             type: 'command',
-            parentId: sectionId,
-            iconType: this.detectIconType(command.trim())
+            parentId: sectionId
         };
 
         this.storeData.commands.push(cmd);
@@ -184,7 +183,7 @@ export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode
         this.refresh();
     }
 
-    async editCommand(command: StoreCommand, newLabel: string, newCommand: string) {
+    async editCommand(command: StoreCommand, newLabel: string, newCommand: string) { // Removed extra arguments
         if (!newLabel.trim()) {
             throw new Error('Label cannot be empty');
         }
@@ -199,7 +198,6 @@ export class StoreProvider implements vscode.TreeDataProvider<StoreItem>, vscode
 
         cmd.label = newLabel.trim();
         cmd.command = newCommand.trim();
-        cmd.iconType = this.detectIconType(newCommand.trim());
 
         await this.saveData();
         this.refresh();

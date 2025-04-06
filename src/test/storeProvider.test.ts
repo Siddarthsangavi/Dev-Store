@@ -128,7 +128,9 @@ suite('StoreProvider Test Suite', () => {
                 command: 'echo imported',
                 type: 'command',
                 parentId: '123'
-            }]
+            }],
+            tagColors: {},
+            iconMappings: {}
         };
 
         await provider.importData(JSON.stringify(testData));
